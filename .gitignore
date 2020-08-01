@@ -1,3 +1,14 @@
+# memory data
+core.*
+
+# .DS_Store
+.DS_Store
+
+# R temporal files
+.Rhistory
+.RData
+.RDataTmp
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
