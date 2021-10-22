@@ -40,6 +40,7 @@ df_color <- read.table(paste0(anno_dir, "color_cellType.tsv"),
 # ct_level <- "Celltypes_master"
 # ct_level <- "Celltypes"
 ct_level <- "celltype"
+ct_level <- "CellTypes_postsoupX_cleaner"
 
 # there might be a file containing this
 # ct_orders <- c("B cell", "CD4+ T cell", "CD4+ Treg cell", "CD8+ gd T cell",
