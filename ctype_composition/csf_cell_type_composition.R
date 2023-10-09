@@ -12,19 +12,22 @@ library(ggplot2)
 
 ## Load data
 fig_dir  <- "/usersdata/yuanhua/msNewData/figures/"
-anno_file <- "/usersdata/yuanhua/msNewData/data_release/expr_csf_annot_clean_rc3_obs.csv"
+anno_file <- "/usersdata/yuanhua/msNewData/data_release/expr_csf_annot_clean_rc5_obs.csv"
 
 df_ms <- read.table(anno_file, sep = ",", header = TRUE)
-df_ms[["celltype2"]] = df_ms$celltype
-df_ms$celltype2[df_ms$T_HAVCR2 == "True"] = "T_HAVCR2"
 
 ## Get cell counts
-ct_level <- "celltype2"
-
+ct_level <- "celltype"
 ct_orders <- c("CD4+ T cell", "CD4+ Treg cell", "CD8+ T cell", "CD8+ gd T cell",
-               "T_HAVCR2",
-               "NK cell", "B cell", "plasma cell", "monocyte", "macrophage", 
+               "NK cell", "B cell", "plasma cell", "monocyte", "Macrophage", 
                "MALAT1low myeloid cell", "cDC1", "cDC2", "pDC")
+
+## For supp figure (uncomment)
+ct_level <- "celltype_finer"
+ct_orders <- sort(unique(df_ms[[ct_level]]), decreasing=TRUE)
+
+print(ct_orders)
+
 
 ## extract cell count and donor disease
 cell_count <- as.data.frame.matrix(table(df_ms[, c("patient_id", ct_level)]))
@@ -40,10 +43,11 @@ df_donor <- df_ms[match(donors, df_ms$patient_id), ]
 mean(donors == rownames(cell_count))
 
 ## add treated info
-is_treated <- 1 - disease$MS
-is_treated[is_treated == 1] <- NA
-is_treated[df_donor$donorseq %in% c("S12765-B2", "S15737-E10")] <- 1
-df_donor['treated'] <- is_treated
+df_donor$treated <- as.integer(df_donor$treated)
+df_donor$treated[disease$MS == 0] <- NA
+
+disease$MS[df_donor$treated == 1] <- NA
+
 
 ## define design matrix
 factor_pool <- cbind(disease$MS, disease$MS, disease$MS, disease$MS,
@@ -69,8 +73,7 @@ factor2 <- cbind(df_donor$oligoclonal, df_donor$active,
 colnames(factor2) <- c('oligoclonal', 'active', 'treated', 'sex')
 
 factor_pool <- cbind(factor_pool, factor2)
-
-
+write.csv(factor_pool, paste0(fig_dir, "celltype_design.rc5-DCATS", ".csv"), quote=FALSE)
 
 
 ### Run dcats
@@ -85,13 +88,14 @@ matrix_dotplot(size_mat = -log10(res_beta$fdr), color_mat = res_beta$ceoffs,
   theme(axis.text.x=element_text(angle=45, hjust=1)) +
   scale_size(limits = c(0.1, 4), range = c(0.1, 4), name='-log10(FDR)')
 
-ggsave(filename = paste0(fig_dir, ct_level, ".rc3-DCATS", ".pdf"),
+ggsave(filename = paste0(fig_dir, ct_level, ".rc5-DCATS", ".pdf"),
        width = 6, height = 6, dpi = 300)
 
 
 ### Generate volcano plot
-prop_ctrl = colMeans(cell_count[factor_pool[,1]==0,] / 
-                     rowSums(cell_count[factor_pool[,1]==0,]))
+ctrl_idx = !is.na(disease$MS) & (disease$MS == 0)
+prop_ctrl = colMeans(cell_count[ctrl_idx,] / rowSums(cell_count[ctrl_idx,]))
+
 res_df = data.frame(
     names=rownames(res_beta$LRT_pvals),
     prop_ctrl=prop_ctrl, 
@@ -110,5 +114,5 @@ ggplot(res_df, aes(x = effsize, y=-log10(pval), label=names, color=names)) +
   geom_vline(xintercept=0, linewidth=0.3) +
   xlab("MS effect size, logit scale") + guides(color="none") + xlim(-1.7, 2.3)
 
-ggsave(filename = paste0(fig_dir, ct_level, ".rc3-DCATS-vocalno", ".pdf"),
+ggsave(filename = paste0(fig_dir, ct_level, ".rc5-DCATS-vocalno", ".pdf"),
        width = 6, height = 5, dpi = 300)
