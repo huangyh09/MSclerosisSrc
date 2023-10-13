@@ -45,9 +45,11 @@ mean(donors == rownames(cell_count))
 ## add treated info
 df_donor$treated <- as.integer(df_donor$treated)
 df_donor$treated[disease$MS == 0] <- NA
+df_donor$active[df_donor$treated == 1] <- NA
+df_donor$gender[df_donor$treated == 1] <- NA
+df_donor$oligoclonal[df_donor$treated == 1] <- NA
 
 disease$MS[df_donor$treated == 1] <- NA
-
 
 ## define design matrix
 factor_pool <- cbind(disease$MS, disease$MS, disease$MS, disease$MS,
