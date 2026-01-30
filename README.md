@@ -3,21 +3,23 @@ Analysis scripts and notebooks for the Multiple Sclerosis project
 
 * Source codes on GitHub: [https://github.com/huangyh09/MSclerosisSrc](https://github.com/huangyh09/MSclerosisSrc)
 * Data on sourceforge: [https://sourceforge.net/projects/ms-csf-singlecell/files/](https://sourceforge.net/projects/ms-csf-singlecell/files/)
+* Danila's source codes: https://github.com/gtca/csf_ms
 
 ## scRNA-seq Data
 
-* Processed scRNA-seq data `expr_csf_annot_clean_rc2.h5ad` [1.9Gb]:
-* Download commandline `wget https://sourceforge.net/projects/ms-csf-singlecell/files/expr_csf_annot_clean_rc2.h5ad`
-* Load the data and fetch the raw counts of all genes
- 
-```python
-# all data focusing on highly variable genes
-adata = scanpy.read('expr_csf_annot_clean_rc2.h5ad')
-adata
+* Processed scRNA-seq data: `expr_csf_annot_clean_rc5.h5ad` [2.7Gb]
+* Processed scRNA-seq data without raw count matrices (gzip compressed): `expr_csf_annot_clean_rc5.noRaw.h5ad` [700Mb]
+* Processed scRNA-seq data with subsetting to 10k cells balanced between donor and celltype (gzip compressed): `expr_csf_annot_clean_rc5.sub10k.h5ad` [53Mb]
 
-# all genes in raw counts
-adata_raw = adata.raw.to_adata()
-adata_raw
+* Fetch and load the data from the URL:
+
+```python
+# the file will be downloaded to your current work directory
+adata_sub = sc.read('expr_csf_annot_clean_rc5.sub10k.h5ad',
+    backup_url='https://sourceforge.net/projects/ms-csf-singlecell/files/expr_csf_annot_clean_rc5.sub10k.h5ad')
+
+# adata5_lite = sc.read('expr_csf_annot_clean_rc5.noRaw.h5ad',
+#     backup_url='https://sourceforge.net/projects/ms-csf-singlecell/files/expr_csf_annot_clean_rc5.noRaw.h5ad')
 ```
 
 ## Genetic data
