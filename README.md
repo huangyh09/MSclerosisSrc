@@ -26,10 +26,16 @@ adata_sub = sc.read('expr_csf_annot_clean_rc5.sub10k.h5ad',
 
 ## Genetic data
 
-* GWAS SNPs (n=200) and their cis genes (930): https://github.com/huangyh09/MSclerosisSrc/blob/master/genetics/MS_GWAS_200SNPs_930genes.tsv
+* GWAS SNPs (n=200) and their cis genes (n=930): https://github.com/huangyh09/MSclerosisSrc/blob/master/genetics/MS_GWAS_200SNPs_930genes.tsv
 * Raw genotypes: `ms.imputed.geno.HRC.81.vcf.gz` [1.7Gb] to be request from EGA [EGAS00001007478](https://ega-archive.org/studies/EGAS00001007478)
 
 ## Viral mapping data
 
 * processed count matrix: `virus833_xf25.tar.gz` [10Mb]
 * Download commandline `wget https://sourceforge.net/projects/ms-csf-singlecell/files/virus833_xf25.tar.gz`
+
+## Reference
+If you find this dataset is useful, please cite our publication:
+
+> Ban M., Bredikhin D., Huang Y., Bonder M. J., Katarzyna K., Oliver A. J., ..., Stegle O. & Sawcer, S. (2024).
+  [Expression profiling of cerebrospinal fluid identifies dysregulated antiviral mechanisms in multiple sclerosis](https://academic.oup.com/brain/article/147/2/554/7457295). Brain, 147(2), 554-565.
