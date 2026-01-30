@@ -11,7 +11,7 @@ Analysis scripts and notebooks for the Multiple Sclerosis project
 * Processed scRNA-seq data without raw count matrices (gzip compressed): `expr_csf_annot_clean_rc5.noRaw.h5ad` [700Mb]
 * Processed scRNA-seq data with subsetting to 10k cells balanced between donor and celltype (gzip compressed): `expr_csf_annot_clean_rc5.sub10k.h5ad` [53Mb]
 
-* Fetch and load the data from the URL:
+#### Fetch and load the adata from the URL:
 
 ```python
 # the file will be downloaded to your current work directory
