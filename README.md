@@ -1,15 +1,17 @@
 # MSclerosisSrc
 Analysis scripts and notebooks for the Multiple Sclerosis project
 
-* Source codes on GitHub: [https://github.com/huangyh09/MSclerosisSrc](https://github.com/huangyh09/MSclerosisSrc)
-* Data on sourceforge: [https://sourceforge.net/projects/ms-csf-singlecell/files/](https://sourceforge.net/projects/ms-csf-singlecell/files/)
+* Source codes on GitHub: https://github.com/huangyh09/MSclerosisSrc
+* Data on sourceforge: https://sourceforge.net/projects/ms-csf-singlecell/files/
 * Danila's source codes: https://github.com/gtca/csf_ms
 
 ## scRNA-seq Data
 
-* Processed scRNA-seq data: `expr_csf_annot_clean_rc5.h5ad` [2.7Gb]
-* Processed scRNA-seq data without raw count matrices (gzip compressed): `expr_csf_annot_clean_rc5.noRaw.h5ad` [700Mb]
-* Processed scRNA-seq data with subsetting to 10k cells balanced between donor and celltype (gzip compressed): `expr_csf_annot_clean_rc5.sub10k.h5ad` [53Mb]
+Notebook for visualizing the released data: [./release_viz.ipynb](https://github.com/huangyh09/MSclerosisSrc/blob/master/release_viz.ipynb)
+
+* `expr_csf_annot_clean_rc5.h5ad` [2.7Gb]: Processed scRNA-seq data
+* `expr_csf_annot_clean_rc5.noRaw.h5ad` [700Mb]: Processed scRNA-seq data without raw count matrices (gzip compressed)
+* `expr_csf_annot_clean_rc5.sub10k.h5ad` [53Mb]: Processed scRNA-seq data with subsetting to 10k cells balanced between donor and celltype (gzip compressed)
 
 #### Fetch and load the adata from the URL:
 
